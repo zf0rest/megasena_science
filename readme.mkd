@@ -18,4 +18,3 @@ Quais perguntas serão respondidas?
 - Mapa da sorte: de onde são os vencedores? (análise geospacial)
 - Como isso se dá ao longo do tempo? (análise temporal)
 - Existem números "frios" ou "quentes"? (análise inferencial)
-- 

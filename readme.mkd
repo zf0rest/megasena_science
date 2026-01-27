@@ -1,20 +1,31 @@
 # A Mega-Sena e a ciência da sorte
 
-Um evento canônico em muitos lares pelo Brasil é reunir a turma na sala pra ver os resultados da "mega da virada". Enquanto a coisa toda acontece na televisão, as pessoas vão sonhando com o que vão fazer com todo aquele montante financeiro: onde vão morar, no que vão investir, pra onde vão viajar, o que vão dizer no trabalho, ou mesmo se vão sumir do mapa e guardar a sorte em segredo! Sempre tem aquele tio que promete "colocar tudo na renda fixa" e levar uma vida de sultão, ou mesmo aquele outro que promete abrir inúmeras ONGs e acabar com algum drama humano real. Eu confesso que sou daqueles mais discretos, que prefere a via que me oferece viver da riqueza em segredo e me apoiar num storytelling convincente que sustente o fato de eu abandonar o trabalho formal.
+### `Motivações`
+Um evento canônico em muitos lares pelo Brasil é reunir a turma na sala para ver os resultados da Mega da Virada. Enquanto a coisa toda acontece na televisão, as pessoas vão sonhando com o que vão fazer com todo aquele montante financeiro: onde vão morar, no que vão investir, para onde vão viajar, o que vão dizer no trabalho, ou mesmo se vão sumir do mapa e guardar a sorte em segredo! Sempre tem aquele tio que promete 'colocar tudo na renda fixa' e levar uma vida de sultão, ou mesmo aquele outro que promete abrir inúmeras ONGs e acabar com algum drama humano real. Eu confesso que sou daqueles mais discretos, que preferem a via que lhes permite viver da riqueza em segredo e se apoiar num storytelling convincente que sustente o fato de abandonarem o trabalho formal mas não gere suspeita alguma.
 
-O mais cômico é que após o ápice dessa epifania imaginativa, todo o Brasil cai em si novamente, nas vidas concretas, nas angústias comuns, e os sonhos voltam a ser apenas sonhos ou veleidades. Afinal, segunda-feira tem trabalho denovo, a bebida esquentou, a comida esfriou e janeiro ainda tem o sabor dos problemas de dezembro.
+O mais cômico é que, após o ápice dessa epifania imaginativa, todo o Brasil cai em si novamente, nas vidas concretas, nas angústias comuns, e os sonhos voltam a ser apenas sonhos e veleidades. Afinal, segunda-feira tem trabalho de novo, a bebida esquentou, a comida esfriou e janeiro ainda tem o sabor dos problemas de dezembro.
 
-Mas não para alguns. Entre todos, existem aqueles agraciados pela providência do acaso. Certas pessoas não voltam ao seu ofício na segunda-feira, a não ser para avisar que vão sair. Elas não precisam descer do vôo das suas imaginações porque agora, pelo menos o dinheiro não será mais um impeditivo.
+Mas não para alguns. Entre todos, existem aqueles agraciados pelo acaso (ou Providência, interprete como quiser). Certas pessoas não voltam ao seu ofício na segunda-feira, a não ser para avisar que vão sair. Elas não precisam descer do voo das suas imaginações porque agora, pelo menos, o dinheiro não será mais um impeditivo.
 
-Esta presente análise é sobre esse evento canônico, que apesar da curiosa conotação cultural oferece verdes campos para uma abordagem estatística objetiva.
+A presente análise de dados é, sobretudo, uma oportunidade de aprender mais sobre a Mega-Sena que, apesar da curiosa conotação cultural, oferece verdes campos para uma abordagem estatística objetiva e clarificação sobre certas questões.
+#
 
-Etapas da análise: 
-1. feature engineering;
-2. Análise exploratória;
-3. Análise de uniformidade estatística;
+### `Projeto`
 
+- Etapas da análise: 
 
-Quais perguntas serão respondidas?
-- Mapa da sorte: de onde são os vencedores? (análise geospacial)
-- Como isso se dá ao longo do tempo? (análise temporal)
-- Existem números "frios" ou "quentes"? (análise inferencial)
+Feature engineering (preparando os dados);  
+Análise exploratória (veja as funções do GeoPandas no arquivo functions.py);  
+Análise de uniformidade estatística (análise inferencial);
+
+##
+
+- Quais perguntas pretendo responder?
+
+Como os vencedores se espalham geograficamente?  
+Quais padrões observamos nos sorteios ao longo do tempo?  
+Existem números "frios" ou "quentes"?
+
+##
+
+- Fonte dos dados: https://loterias.caixa.gov.br/Paginas/Mega-Sena.aspx

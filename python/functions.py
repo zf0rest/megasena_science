@@ -6,6 +6,8 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker 
 from matplotlib import pyplot as plt
 from matplotlib.pyplot import subplots, show, figure
+import matplotlib.cm as cm
+import matplotlib.colors as mcolors
 
 def dispersao(dados,eixo_x,eixo_y,titulo):
     '''A função recebe dados e plota um scatterplot com o padrão visual do trabalho'''
@@ -107,3 +109,87 @@ def vacancia(dataframe):
          bbox={'facecolor':'orange', 'alpha':0.2, 'pad':5})
     plt.show()
 
+def geo_x_bar(dataframe, col_valor, colors, titulo, subtitulo, legenda):
+    """Esta função recebe os argumentos acima, autoindicativos, afim de gerar um plor composto de dois itens: 
+    
+        1. Um mapa do Brasil na granularidade dos estados (por isso o dataframe deve ser um Geodf do geopandas)
+        2. Um gráfico de barras que expressa a variação do mapa cloroplético segundo uma variável de gradação (col_valor)
+    
+    """ 
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(20, 10), gridspec_kw={'width_ratios': [2.2, 1]}) #quadro com dois plots novamente
+
+    plt.subplots_adjust(top=0.9, bottom=0.20, left=0.2, right=0.8)
+    ax1.set_xlim(-77, -34)
+    ax1.set_ylim(-35, 10)
+    # --- LADO ESQUERDO: O MAPA (ax1) ---
+    dataframe.plot(column=col_valor,
+                ax=ax1, # Agora apontamos para ax1
+                legend=True, 
+                cmap=colors,
+                edgecolor='#7F8C8D',
+                linewidth=0.5,
+                legend_kwds={
+                    'label': "Nº de ganhadores (dos que se tem informação)", 
+                    'orientation': "horizontal",
+                    'shrink': 0.3,
+                    'pad': 0
+                }
+    )
+
+    # Títulos alinhados ao ax1 que é o nosso mapinha
+    ax1.text(0.05, 1.05, titulo, 
+            transform=ax1.transAxes, fontsize=20, fontweight='bold', color='#00441b')
+    ax1.text(0.05, 0.97, subtitulo, 
+            transform=ax1.transAxes, fontsize=14, color='#7F8C8D')
+    ax1.axis('off') #EU prefiro um design minimalista para uma análise informal, então tiro as barras em torno do mapa
+
+
+
+    df_topestados = dataframe.sort_values(col_valor, ascending=True).tail(10) #podia ser o ascending = False e o Head no lugar
+    # A coisa mais complicad desse plot foi aplicar a mesma escala de cores do GeoMap no gráfico de barras. A lógia é a seguinte:
+   
+    # Importe o colormaps e o colors do matplotlib > Criamos um normalizador que escala seus dados de 0 a 1 (como a correlação de Pearson faz)
+    Escala_numerica = mcolors.Normalize(vmin=dataframe[col_valor].min(), #seu mínimo
+                            vmax=dataframe[col_valor].max()) #seu máximo
+    
+    # > Criamos o mapeador de cores usando o mesmo cmap do mapa (colors no caso) - ele vai atribui uma cor para cada valor da sua escala numérica >
+    dict_cores = cm.ScalarMappable(norm=Escala_numerica, cmap=colors)
+    
+    # > Aplicamos as cores para cada valor na hora de plotar
+    Escala_cores = [dict_cores.to_rgba(i) for i in df_topestados[col_valor]]
+   
+    # > Agora sim, passamos a lista de cores para o barh
+    barras = ax2.barh(df_topestados['SIGLA_UF'], 
+                    df_topestados[col_valor], 
+                    color=Escala_cores
+    ) #veja que a escala de cores foi aplicada no DF INTEIRO, e não nos top10, seguindo o padrão do gráfico
+
+    for bar in barras: #pra cada barra, gere uma descrição com tais características.
+        width = bar.get_width()
+        ax2.text(int(width) + 5,
+                bar.get_y() + bar.get_height()/2, 
+                int(width),
+                va='center', 
+                fontsize=12, 
+                color='#7F8C8D', 
+                fontweight='bold'
+                )
+
+    #setando os atributos visuais das barras
+    ax2.spines['left'].set_visible(False)
+    ax2.spines['top'].set_visible(False)
+    ax2.spines['right'].set_visible(False)
+    ax2.spines['bottom'].set_visible(False)
+    ax2.get_xaxis().set_visible(False) 
+
+
+    #Configurando a legenda
+    plt.figtext(0.6, 0.07, 
+                legenda, 
+                fontsize=10, 
+                color='#7F8C8D',
+                ha='left')
+
+    plt.tight_layout(rect=[-0.2, 0.08, 0.97, 1], w_pad=-50)
+
+    plt.show()

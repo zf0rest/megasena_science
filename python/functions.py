@@ -97,7 +97,7 @@ def vacancia(dataframe):
     
     for i in range(len(nulos)):
         plt.text(x = i + 0.5,y=-1.5 , s = nulos[i], ha='center') 
-        #pra cada coluna de nulo, geramos um texto nas posições 'x' e 'y' com o 's' sendo o conteúdo
+        #pra cada coluna de nulo, geramos um texto nas posições 'x' e 'y' com o 's' sendo o valor
 
     plt.title(f'Total de registros vazios no dataframe:{nulos.sum()}\n~{(dataframe.shape[1]/dataframe.shape[0]):.2f}% do total', pad=30) #esse pad dá um espacinho pro titulo não ficar colado no gráfico    
     plt.xticks(rotation=45)
@@ -121,7 +121,7 @@ def geo_x_bar(dataframe, col_valor, colors, titulo, subtitulo, legenda, label_gr
     plt.subplots_adjust(top=0.9, bottom=0.20, left=0.2, right=0.8)
     ax1.set_xlim(-77, -34)
     ax1.set_ylim(-35, 10)
-    # --- LADO ESQUERDO: O MAPA (ax1) ---
+
     dataframe.plot(column=col_valor,
                 ax=ax1, # Agora apontamos para ax1
                 legend=True, 

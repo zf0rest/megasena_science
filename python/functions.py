@@ -97,7 +97,7 @@ def vacancia(dataframe):
     
     for i in range(len(nulos)):
         plt.text(x = i + 0.5,y=-1.5 , s = nulos[i], ha='center') 
-        #pra cada coluna de nulo, geramos um texto nas posições 'x' e 'y' com o 's' sendo o conteúdo
+        #pra cada coluna de nulo, geramos um texto nas posições 'x' e 'y' com o 's' sendo o valor
 
     plt.title(f'Total de registros vazios no dataframe:{nulos.sum()}\n~{(dataframe.shape[1]/dataframe.shape[0]):.2f}% do total', pad=30) #esse pad dá um espacinho pro titulo não ficar colado no gráfico    
     plt.xticks(rotation=45)
@@ -109,8 +109,8 @@ def vacancia(dataframe):
          bbox={'facecolor':'orange', 'alpha':0.2, 'pad':5})
     plt.show()
 
-def geo_x_bar(dataframe, col_valor, colors, titulo, subtitulo, legenda):
-    """Esta função recebe os argumentos acima, autoindicativos, afim de gerar um plor composto de dois itens: 
+def geo_x_bar(dataframe, col_valor, colors, titulo, subtitulo, legenda, label_gradiente):
+    """Esta função recebe os argumentos acima, autoindicativos, afim de gerar um plot composto de dois itens: 
     
         1. Um mapa do Brasil na granularidade dos estados (por isso o dataframe deve ser um Geodf do geopandas)
         2. Um gráfico de barras que expressa a variação do mapa cloroplético segundo uma variável de gradação (col_valor)
@@ -121,7 +121,7 @@ def geo_x_bar(dataframe, col_valor, colors, titulo, subtitulo, legenda):
     plt.subplots_adjust(top=0.9, bottom=0.20, left=0.2, right=0.8)
     ax1.set_xlim(-77, -34)
     ax1.set_ylim(-35, 10)
-    # --- LADO ESQUERDO: O MAPA (ax1) ---
+
     dataframe.plot(column=col_valor,
                 ax=ax1, # Agora apontamos para ax1
                 legend=True, 
@@ -129,16 +129,17 @@ def geo_x_bar(dataframe, col_valor, colors, titulo, subtitulo, legenda):
                 edgecolor='#7F8C8D',
                 linewidth=0.5,
                 legend_kwds={
-                    'label': "Nº de ganhadores (dos que se tem informação)", 
+                    'label': label_gradiente, 
                     'orientation': "horizontal",
                     'shrink': 0.3,
                     'pad': 0
                 }
     )
-
+    cor_do_tema = plt.get_cmap(colors)
+    cor_titulo = cor_do_tema(0.95) #Isso aqui é a cor 95% mais escura do mapa de cores que o usuário passou.
     # Títulos alinhados ao ax1 que é o nosso mapinha
     ax1.text(0.05, 1.05, titulo, 
-            transform=ax1.transAxes, fontsize=20, fontweight='bold', color='#00441b')
+            transform=ax1.transAxes, fontsize=20, fontweight='bold', color= mcolors.to_hex(cor_titulo))
     ax1.text(0.05, 0.97, subtitulo, 
             transform=ax1.transAxes, fontsize=14, color='#7F8C8D')
     ax1.axis('off') #EU prefiro um design minimalista para uma análise informal, então tiro as barras em torno do mapa
@@ -193,3 +194,7 @@ def geo_x_bar(dataframe, col_valor, colors, titulo, subtitulo, legenda):
     plt.tight_layout(rect=[-0.2, 0.08, 0.97, 1], w_pad=-50)
 
     plt.show()
+
+
+    
+

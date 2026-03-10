@@ -196,5 +196,44 @@ def geo_x_bar(dataframe, col_valor, colors, titulo, subtitulo, legenda, label_gr
     plt.show()
 
 
+def doubleplot(X, Y, Y2, titulo:str, subtitulo:str, l1, l2):
+    """
+    Gera gráfico de linhas comparativo (Nominal vs. IPCA).
+    
+    Parâmetros:
+    - X, Y, Y2: dados dos eixos (eixo X, série principal e série deflacionada).
+    - titulo, subtitulo: textos do cabeçalho mantendo padrão visual do projeto.
+    - l1, l2: legendas 1 e 2 do gráfico.
+    
+    Retorno: Exibe plot customizado com padrão visual corporativo.
+    """
+    sns.set_theme(style="whitegrid")
+    plt.figure(figsize=(20, 10))
+
+    #Plot da linha principal
+    ax = sns.lineplot(x=X, y=Y, 
+                      color='#00441b', linewidth=4, marker='o', label=l1)
+    #Plot da linha secundária
+    sns.lineplot(x=X, y=Y2, 
+                 color='#7F8C8D', linewidth=2, linestyle='--', label=l2)
+
+    plt.xticks(X, rotation=45)
+    plt.ylabel("R$ Bilhões", fontsize=12, color='#7F8C8D')
+    plt.xlabel(None)
+
+    ax.text(0.0, 1.12, titulo, 
+            transform=ax.transAxes, fontsize=20, fontweight='bold', color='#00441b')
+    ax.text(0.00, 1.075, subtitulo, 
+            transform=ax.transAxes, fontsize=14, color='#7F8C8D')
+
+    plt.legend(frameon=False, fontsize=12, loc='upper left', bbox_to_anchor=(0, 1.05), ncol=2)
+
+    plt.figtext(0.585, 0.07, 
+                'Dados extraídos da Caixa Econômica Federal e SIDRA (IBGE) - (1996-2025) | Elaborado por Lucas Reges Lima', 
+                fontsize=10, color='#7F8C8D', ha='left')
+
+    sns.despine(left=True, bottom=True)
+    plt.subplots_adjust(top=0.82, bottom=0.15, left=0.1, right=0.95)
+    plt.show()
     
 

@@ -195,6 +195,37 @@ def geo_x_bar(dataframe, col_valor, colors, titulo, subtitulo, legenda, label_gr
 
     plt.show()
 
+def single_barplot(X, Y, titulo:str, subtitulo:str):
+    """
+    Este é um gráfico de barras específico, sem intuito de modularizar sua visualização,
+    apenas deixá-lo aqui para que este código não ocupe espaço demasiado no notebook
+    
+    """
+    sns.set_theme(style="whitegrid")
+
+    plt.figure(figsize=(20, 10))
+    ax = sns.barplot(x=X, y=Y, color='#00441b')
+
+    plt.xticks(rotation=45)
+
+    ax.text(0.0, 1.12, titulo, 
+             transform=ax.transAxes, fontsize=20, fontweight='bold', color= '#00441b')
+    ax.text(0.00, 1.075, subtitulo, 
+             transform=ax.transAxes, fontsize=14, color='#7F8C8D')
+
+    plt.subplots_adjust(top=0.82, bottom=0.15, left=0.1, right=0.95)
+    plt.figtext(0.65, 0.07, 
+                    'Dados extraídos da Caixa Econômica Federal (1996-2026) | Elaborado por Lucas Reges Lima', 
+                    fontsize=10, 
+                    color='#7F8C8D',
+                    ha='left')
+
+    sns.despine()
+    plt.ylabel("R$ Bilhões", fontsize=12, color='#7F8C8D')
+    plt.xlabel(None)
+    ax.spines[['left', 'bottom']].set_visible(False)
+    plt.show()
+
 
 def doubleplot(X, Y, Y2, titulo:str, subtitulo:str, l1, l2):
     """

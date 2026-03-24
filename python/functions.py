@@ -339,7 +339,7 @@ def plot_hist_dezenas_redline(dataset, freq_esp):
 
     ax.text(0.0, 1.12, 'O quanto os meus dados estão longe do alvo',
             transform=ax.transAxes, fontsize=22, fontweight='bold', color='#00441b')
-    ax.text(0.00, 1.075, 'distribuição das dezenas de 1996 a 2026', 
+    ax.text(0.00, 1.075, 'distribuição das dezenas em relação à frequência esperada', 
             transform=ax.transAxes, fontsize=16, color='#7F8C8D')
 
     plt.figtext(0.45, 0.05, 'Dados extraídos da Caixa Econômica Federal (1996-2026) | Elaborado por Lucas Reges Lima', 

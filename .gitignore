@@ -3,3 +3,10 @@ Data/*
 .venv/
 __pycache__/
 *.pyc
+
+# Arquivos de Geoprocessamento
+*.shp
+*.shx
+*.dbf
+*.prj
+

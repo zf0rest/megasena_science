@@ -1,32 +1,85 @@
 # A Mega-Sena e a ciência da sorte
 
-### `Motivações`
-Um evento canônico em muitos lares pelo Brasil é reunir a turma na sala para ver os resultados da Mega da Virada. Enquanto a coisa toda acontece na televisão, as pessoas vão sonhando com o que vão fazer com todo aquele montante financeiro: onde vão morar, no que vão investir, para onde vão viajar, o que vão dizer no trabalho, ou mesmo se vão sumir do mapa e guardar a sorte em segredo! Sempre tem aquele tio que promete 'colocar tudo na renda fixa' e levar uma vida de sultão, ou mesmo aquele outro que promete abrir inúmeras ONGs e acabar com algum drama humano real. Eu confesso que sou daqueles mais discretos, que preferem a via que lhes permite viver da riqueza em segredo e se apoiar num storytelling convincente que sustente o fato de abandonarem o trabalho formal mas não gere suspeita alguma.
+### Motivações
+Um evento canônico em muitos lares pelo Brasil é reunir a turma na sala para ver os resultados da Mega da Virada. Enquanto a coisa toda acontece na televisão, as pessoas vão sonhando com o que vão fazer com todo aquele montante financeiro: onde vão morar, no que vão investir, para onde vão viajar, o que vão dizer no trabalho, ou mesmo se vão sumir do mapa e guardar a sorte em segredo! Sempre tem aquele tio que promete 'colocar tudo na renda fixa' e levar uma vida "equilibrada", ou mesmo aquela outra pessoa que promete abrir inúmeras ONGs e acabar com algum drama humano real. Eu confesso que sou daqueles mais discretos, que preferem a via que lhes permite viver da riqueza em segredo e se apoiar num storytelling convincente que sustente o fato de abandonar o trabalho formal sem gerar suspeita alguma.
 
 O mais cômico é que, após o ápice dessa epifania imaginativa, todo o Brasil cai em si novamente, nas vidas concretas, nas angústias comuns, e os sonhos voltam a ser apenas sonhos e veleidades. Afinal, segunda-feira tem trabalho de novo, a bebida esquentou, a comida esfriou e janeiro ainda tem o sabor dos problemas de dezembro.
 
-Mas não para alguns. Entre todos, existem aqueles agraciados pelo acaso (ou Providência, interprete como quiser). Certas pessoas não voltam ao seu ofício na segunda-feira, a não ser para avisar que vão sair. Elas não precisam descer do voo das suas imaginações porque agora, pelo menos, o dinheiro não será mais um impeditivo.
+Mas não para alguns. Entre todos, existem aqueles agraciados pelo acaso (ou Providência, interprete como quiser). Certas pessoas não voltam ao seu ofício na segunda-feira, a não ser para avisar que vão sair. Elas não precisam descer do voo das suas imaginações porque agora, pelo menos, o dinheiro lhes deu asas.
 
 A presente análise de dados é, sobretudo, uma oportunidade de aprender mais sobre a Mega-Sena que, apesar da curiosa conotação cultural, oferece verdes campos para uma abordagem estatística objetiva e clarificação sobre certas questões.
+##
+
+
+### Ferramentas do projeto:
+
+- Python (pandas, NumPy e regex): Manipulação pesada de dados.
+
+- Matplotlib & Seaborn: Visualização customizada via classe proprietária.
+
+- Geopandas: Análise geoespacial com dados do IBGE.
+
+- APIs (Sidrapy): Conexão direta para deflação automática via IPCA.
+
+- SciPy: Teste estatístico de aderência (Qui-Quadrado).
+
+##
+
+### Etapas da Análise
+
+Um diferencial deste projeto é a transição de funções procedurais de plotagem para `orientação a objetos` (POO). Desenvolvi a classe `MegaSenaViz` pra centralizar a inteligência visual sem que a classe prenda o df principal no `__init__`. Esse desacoplamento que permite com que eu tenha liberdade pra ir construindo e lapidando o dataframe ao longo do notebook também me permite uma coisa importante:
+
+**Identidade Visual Centralizada**: Cores, fontes e estilos (como o verde que usamos nos gráficos ``#00441b`` são definidos uma única vez. Mudar o design de 20 gráficos agora leva 1 segundo.
+###
+1. **ETL e Feature Engineering**
+  
+  - Tratamento de valores monetários e conversão de tipos de dados;
+#####
+  - Data Enrichment: extração de localidade de ganhadores a partir de colunas de observações textuais não estruturadas utilizando Regex;
+#####
+  - Exploração e tratamento de missing values.
+###
+2. **Probabilidade e Combinatória**
+ - Cálculo do espaço amostral total da Mega-Sena ($C_{60,6}$).
+ #####
+ - Dedução matemática das probabilidades de acerto para Quina e Quadra, demonstrando por que o volume de ganhadores nessas categorias é exponencialmente maior.$$C(n, k) = \frac{n!}{k!(n-k)!}$$
+###
+3. **Análise Geoespacial**
+ - Mapeamento da concentração de vencedores e capital premiado.
+#####
+ - Insight: Identificação da dominância do eixo SP-MG-RJ, que detém mais de R$ 10 bilhões em prêmios, refletindo densidade populacional e volume de apostas.
+###
+4. **Economia: Prêmios Reais vs. Inflação**
+ - Uso do IPCA para deflacionar a série histórica.
+ #####
+ - Ilusão Monetária: Demonstração de que, embora o prêmio nominal tenha crescido 23x, o valor real (poder de compra) cresceu apenas ~4,3x.
+ #####
+ - Análise do "valor presente" de prêmios históricos, revelando que sorteios de 1999 foram proporcionalmente mais valiosos que muitos recordes nominais recentes.
+###
+5. **Inferência estatística e o mito dos 'números quentes'** 
+ - Teste Qui-Quadrado ($\chi^2$): Verificação da aderência à distribuição uniforme.
+ #####
+ - lei dos grandes números: Análise de convergência do erro médio seguindo a função $1/\sqrt{N}$.
+ #####
+ - O sorteio é "honestamente imperfeito": a aleatoriedade introduz ruídos mínimos no jogo, mas a convergência acima confirma a integridade do processo.
+
 #
 
-### `Projeto`
+##### Disclaimer
+*Este projeto possui caráter estritamente acadêmico e de estudo pessoal. O autor não possui vínculo com a Caixa Econômica Federal. As análises são interpretações matemáticas e não constituem recomendação de jogo ou consultoria financeira.*
 
-- Etapas da análise: 
 
-Feature engineering (preparando os dados);  
-Análise exploratória (veja as funções do GeoPandas no arquivo functions.py);  
-Análise de uniformidade estatística (análise inferencial);
 
-##
+#
+### Fontes de consulta 
+- https://loterias.caixa.gov.br/Paginas/Mega-Sena.aspx (base de dados principal)
 
-- Quais perguntas pretendo responder?
+- https://analisemacro.com.br/economia/indicadores/coletando-dados-do-sidra-com-o-python/ (como usar a API do IBGE)
 
-Como os vencedores se espalham geograficamente?  
-Quais padrões observamos nos sorteios ao longo do tempo?  
-Existem números "frios" ou "quentes"?
+- https://seaborn.pydata.org/generated/seaborn.objects.Plot.html (Documentação do seaborn)
 
-##
+- Bussab, WO; Morettin, PA. Estatística Básica. São Paulo: Editora Saraiva, 2017 (9ª Edição)
 
-- Fonte dos dados: 
-https://loterias.caixa.gov.br/Paginas/Mega-Sena.aspx
+- Montgomery, DC; Runger, GC. Estatística aplicada e probabilidade para engenheiros. Rio de Janeiro: LTC Editora, 2012 (5ª Edição)
+
+- https://claude.ai/ (Para criar vídeo)
